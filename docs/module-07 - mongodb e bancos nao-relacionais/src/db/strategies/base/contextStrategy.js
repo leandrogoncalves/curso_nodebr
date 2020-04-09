@@ -8,13 +8,13 @@ class ContextStrategy extends IDb {
     return this._database.isConnected();
   }
   connect() {
-    return this._database.connect();
+    return this._database.connect()
   }
   create(item) {
     return this._database.create(item);
   }
-  read(item, skip=0, limit=0) {
-    return this._database.read(item, skip, limit);
+  read(item) {
+    return this._database.read(item);
   }
   update(id, item) {
     return this._database.update(id, item);

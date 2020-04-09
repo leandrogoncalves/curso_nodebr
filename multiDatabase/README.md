@@ -54,3 +54,6 @@ docker run \
 winpty docker exec -it mongodb_node \
     mongo --host localhost -u admin -p 123 --authenticationDatabase admin \
     --eval "db.getSiblingDB('herois').createUser({user:'leandro',pwd:'123',roles:[{role:'readWrite', db: 'herois'}]})"
+
+winpty docker exec -it mongodb_node \
+    mongo -u leandro -p 123  --authenticationDatabase herois

@@ -16,7 +16,7 @@ class MongoDB extends ICrud {
         const state = STATUS[this._driver.readyState]
         if (state === 'Conectado') return state;
 
-        if (state !== 'Conectando') return state;
+        if (state !== 'Conectando') return state
 
         await new Promise(resolve => setTimeout(resolve, 1000))
 
@@ -37,36 +37,38 @@ class MongoDB extends ICrud {
                 type: Date,
                 default: new Date()
             }
-        });
+        })
         
         //mocha workaround
-        this._herois = Mongoose.models.herois || Mongoose.model('herois', heroiSchema);
+        this._herois = Mongoose.models.herois || Mongoose.model('herois', heroiSchema)
     }
     connect() {
-        Mongoose.connect('mongodb://leandro:123@localhost:27017/herois', {
+        Mongoose.connect('mongodb://erickwendel:minhasenhasecreta@localhost:27017/herois', {
             useNewUrlParser: true
         }, function (error) {
             if (!error) return;
             console.log('Falha na conexão!', error)
-        });
+        })
 
 
-        this._driver = Mongoose.connection;
-        this._driver.once('open', () => console.log('database rodando!!'));
-        this.defineModel();
+        this._driver = Mongoose.connection
+        this._driver.once('open', () => console.log('database rodando!!'))
+        this.defineModel()
 
     }
+
     async create(item) {
-        return this._herois.create(item);
+        return this._herois.create(item)
     }
-    async read(item = {}, skip=0, limit=1000) {
-        return this._herois.find(item, { nome: 1, poder: 1, insertedAt: 1}).skip(skip).limit(limit);
+    async read(item = {}) {
+        return this._herois.find(item, { nome: 1, poder: 1, insertedAt: 1})
     }
     async update(id, item) {
-        return this._herois.updateOne({_id: id}, { $set: item});
+        return this._herois.updateOne({_id: id}, { $set: item})
     }
+    
     async delete(id) {
-        return this._herois.deleteOne({_id: id});
+        return this._herois.deleteOne({_id: id})
     }
 }
 
