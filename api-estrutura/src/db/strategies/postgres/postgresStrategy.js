@@ -61,8 +61,14 @@ class PostgreSQLStrategy extends IDb {
     return this._schema.findAll({ where: item, raw: true });
   }
 
-  update(id, item) {
-    return this._schema.update(item, { where: { id } });
+  update(id, item, upsert = false) {
+    const fn = upsert ? 'upsert' : 'update';
+    return this._schema[fn](item, {
+      where: {
+        id
+      }
+    });
+    // return this._schema.update(item, { where: { id } });
   }
   delete(id) {
     const query = id ? { id } : {};
