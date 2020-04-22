@@ -21,23 +21,18 @@ class PostgreSQLStrategy extends IDb {
   }
 
   static async connect() {
-    const sequelize = new Sequelize(
-      'heroes', //database
-      'leandro', // user
-      '123', //senha
-      {
-        host: 'localhost',
-        dialect: 'postgres',
+    const sequelize = new Sequelize(process.env.POSTGRES_URL,{
         // case sensitive
         quoteIdentifiers: false,
         // deprecation warning
         operatorsAliases: false,
         //Log query
-        logging: false
-        // dialectOptions: {
-        //   ssl: true,
-        },
-    );
+        logging: false,
+        ssl: process.env.SSL_DB,
+        dialectOptions: {
+          ssl: process.env.SSL_DB,
+        }
+    });
 
     return sequelize;
   }

@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha -w src/tests/*.test.js"
+    "preinstall": "npm i -g pm2",
+    "prod": "cross-env NODE_ENV=prod pm2-runtime api.js",
+    "start": "nodemon api.js",
+    "test": "mocha --timeout 10000 -w src/tests/*.test.js",
+    "test:prod": "cross-env NODE_ENV=prod npm t"
   },
   "keywords": [],
   "author": "",
@@ -12,6 +16,7 @@
   "dependencies": {
     "bcrypt": "^4.0.1",
     "boom": "^7.3.0",
+    "dotenv": "^8.2.0",
     "hapi": "^17.7.0",
     "hapi-auth-jwt2": "^10.1.0",
     "hapi-swagger": "^9.1.3",

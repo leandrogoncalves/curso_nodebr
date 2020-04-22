@@ -1,3 +1,31 @@
+/**
+ * 1o create config files
+ * 2o find variables
+ * 3o alter postgres to URI
+ * 4o install dotenv
+ * 5o replace variables
+ */
+const {
+    join
+} = require('path');
+const {
+    config
+} = require('dotenv');
+const {
+    ok
+} = require('assert');
+
+const env = process.env.NODE_ENV || "dev";
+
+ok(env === "prod" || env === "dev", "environment inválida! Ou prod ou dev");
+
+const configPath = join('./config', `.env.${env}`);
+
+config({
+    path: configPath
+});
+
+
 const Hapi = require('hapi');
 const Context = require('./db/strategies/base/contextStrategy');
 const MongoDB = require('./db/strategies/mongoDB/mongoDbStrategy');
@@ -8,7 +36,7 @@ const Postgres = require('./db/strategies/postgres/postgresStrategy');
 const UserSchema = require('./db/strategies/postgres/schemas/userSchema');
 
 const AuthRoutes = require('./routes/authRoutes');
-const MINHA_CHAVE_SECRETA = 'ESSA_E_TRETA'
+const MINHA_CHAVE_SECRETA = process.env.JWT_KEY;
 
 
 const HapiSwagger = require('hapi-swagger');
@@ -17,7 +45,7 @@ const Inert = require('inert');
 const HapiJwt = require('hapi-auth-jwt2');
 
 const app = new Hapi.Server({
-    port: 5000
+    port: process.env.PORT
 });
 
 function mapRoutes(instance, methods) {

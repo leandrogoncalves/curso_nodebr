@@ -51,7 +51,7 @@ describe('Auth test suite', function () {
         });
         const statusCode = result.statusCode
 
-        assert.deepEqual(statusCode, 401)
-        assert.deepEqual(JSON.parse(result.payload).error, "Unauthorized")
+        assert.deepEqual(statusCode, 401);
+        assert.deepEqual(JSON.parse(result.payload).error, "Unauthorized");
     })
 })
