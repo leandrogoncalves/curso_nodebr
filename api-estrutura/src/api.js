@@ -35,6 +35,8 @@ const HeroRoutes = require('./routes/heroRoutes');
 const Postgres = require('./db/strategies/postgres/postgresStrategy');
 const UserSchema = require('./db/strategies/postgres/schemas/userSchema');
 
+const UtilRoutes = require('./routes/utilRoutes');
+
 const AuthRoutes = require('./routes/authRoutes');
 const MINHA_CHAVE_SECRETA = process.env.JWT_KEY;
 
@@ -95,7 +97,8 @@ async function main() {
 
     app.route([
         ...mapRoutes(new HeroRoutes(mongoDb), HeroRoutes.methods()),
-        ...mapRoutes(new AuthRoutes(MINHA_CHAVE_SECRETA, postgresModel), AuthRoutes.methods())
+        ...mapRoutes(new AuthRoutes(MINHA_CHAVE_SECRETA, postgresModel), AuthRoutes.methods()),
+        ...mapRoutes(new UtilRoutes(), UtilRoutes.methods())
     ])
 
     await app.start();
